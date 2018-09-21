@@ -6,7 +6,7 @@ We recommend using this library if you would like to use the full suite of the P
 
 ## Requirements
 
-- PHP 7.0 or above
+- PHP 7.1 or above
 
 ## Installation
 

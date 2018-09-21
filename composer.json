@@ -2,6 +2,13 @@
     "name": "abwebdevelopers/pin-payments",
     "description": "Facilitates communication between your PHP app and the Pin Payments API.",
     "type": "library",
+    "homepage": "https://github.com/ABWebDevelopers/pin-payments",
+    "keywords": [
+      "payment",
+      "payments",
+      "pin",
+      "gateway"
+    ],
     "require": {
         "php": "^7.1",
         "php-http/client-implementation": "^1.0",

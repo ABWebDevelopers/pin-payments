@@ -1,0 +1,30 @@
+{
+    "name": "abwebdevelopers/pin-payments",
+    "description": "Facilitates communication between your PHP app and the Pin Payments API.",
+    "type": "library",
+    "require": {
+        "php": "^7.1",
+        "php-http/client-implementation": "^1.0",
+        "icanboogie/inflector": "^1.4",
+        "respect/validation": "^1.1"
+    },
+    "require-dev": {
+        "php-http/mock-client": "^1.0",
+        "phpunit/phpunit": "^7.0",
+        "php-http/curl-client": "^1.7",
+        "guzzlehttp/psr7": "^1.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ben Thomson",
+            "email": "ben@abweb.com.au"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ABWebDevelopers\\PinPayments\\": "src/",
+            "ABWebDevelopers\\PinPayments\\Tests\\": "tests/"
+        }
+    }
+}

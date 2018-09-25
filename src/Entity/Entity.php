@@ -2,8 +2,8 @@
 namespace ABWebDevelopers\PinPayments\Entity;
 
 use Respect\Validation\Validator;
-use ABWebDevelopers\PinPayment\Entity\Exception\InvalidClassException;
-use ABWebDevelopers\PinPayment\Entity\Exception\InvalidClassValueException;
+use ABWebDevelopers\PinPayments\Entity\Exception\InvalidClassException;
+use ABWebDevelopers\PinPayments\Entity\Exception\InvalidClassValueException;
 
 abstract class Entity
 {
@@ -214,13 +214,24 @@ abstract class Entity
             case 'datetime':
             case 'date':
             case 'time':
-                return ($value instanceof \DateTime);
+                if ($value instanceof \DateTime) {
+                    return true;
+                } else if (is_string($value)) {
+                    try {
+                        $date = new \DateTime($value);
+                    } catch (\Exception $e) {
+                        return false;
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
             default:
                 if (!class_exists($this->attributes[$attributeUnderscore])) {
                     throw new InvalidClassException($this->attributes[$attributeUnderscore] . ' is not a valid
                         class to use as an entity attribute.');
                 }
-                return ($value instanceof $this->attributes[$attributeUnderscore]);
+                return ($value instanceof $this->attributes[$attributeUnderscore] || is_array($value));
         }
     }
 
@@ -247,6 +258,10 @@ abstract class Entity
                 return intval($value);
             case 'float':
                 return floatval($value);
+            case 'datetime':
+            case 'date':
+            case 'time':
+                return new \DateTime($value);
             default:
                 if (class_exists($this->attributes[$attributeUnderscore])) {
                     if (is_array($value)) {

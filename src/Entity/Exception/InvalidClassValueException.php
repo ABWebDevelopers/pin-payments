@@ -1,7 +1,7 @@
 <?php
-namespace ABWebDevelopers\PinPayments\Endpoint\Exception;
+namespace ABWebDevelopers\PinPayments\Entity\Exception;
 
-class InvalidClassException extends \Exception
+class InvalidClassValueException extends \Exception
 {
     /**
      * Exception message

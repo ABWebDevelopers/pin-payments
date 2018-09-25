@@ -118,6 +118,11 @@ abstract class Entity
         return;
     }
 
+    public function __toString(): string
+    {
+        return json_encode($this->getApiData(), JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
+    }
+
     public function get(bool $unmasked = false): array
     {
         $data = [];

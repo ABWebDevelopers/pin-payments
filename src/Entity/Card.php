@@ -35,4 +35,8 @@ class Card extends Entity
         'error' => 'string',
         'messages' => 'array'
     ];
+
+    protected $masked = [
+        'number' => 'display_number'
+    ];
 }

@@ -46,6 +46,7 @@ class ApiClient
      */
     protected $endpoints = [
         'balance' => \ABWebDevelopers\PinPayments\Endpoint\Balance::class,
+        'bankAccounts' => \ABWebDevelopers\PinPayments\Endpoint\BankAccounts::class,
         'cards' => \ABWebDevelopers\PinPayments\Endpoint\Cards::class,
         'charges' => \ABWebDevelopers\PinPayments\Endpoint\Charges::class,
     ];

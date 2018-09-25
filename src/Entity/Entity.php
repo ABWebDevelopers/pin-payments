@@ -3,6 +3,7 @@ namespace ABWebDevelopers\PinPayments\Entity;
 
 use Respect\Validation\Validator;
 use ABWebDevelopers\PinPayment\Entity\Exception\InvalidClassException;
+use ABWebDevelopers\PinPayment\Entity\Exception\InvalidClassValueException;
 
 abstract class Entity
 {
@@ -248,8 +249,12 @@ abstract class Entity
                 return floatval($value);
             default:
                 if (class_exists($this->attributes[$attributeUnderscore])) {
-                    $value = new $this->attributes[$attributeUnderscore]($value);
-                    $value->setLoaded(true);
+                    if (is_array($value)) {
+                        $value = new $this->attributes[$attributeUnderscore]($value);
+                        $value->setLoaded(true);
+                    } else if ($value instanceof $this->attributes[$attributeUnderscore] === false) {
+                        throw new InvalidClassValueException(get_class($value) . ' is not an instance of ' . $this->attributes[$attributeUnderscore]);
+                    }
                 }
                 return $value;
         }

@@ -1,7 +1,7 @@
 <?php
 namespace ABWebDevelopers\PinPayments\Entity;
 
-use Entity;
+use ABWebDevelopers\PinPayments\Entity\Entity;
 
 class Charge extends Entity
 {

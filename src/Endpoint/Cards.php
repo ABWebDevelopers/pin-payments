@@ -19,16 +19,23 @@ class Cards extends Endpoint
         );
 
         $response = $request->send();
+        $data = $response->data();
+        $card->setSubmitted(true);
 
         if ($response->successful()) {
-            $data = $response->data();
-
-            $card->set($data)
+            $card->set($data['response'])
                 ->setSuccessful(true)
-                ->setLoaded(true)
-                ->setSubmitted(true);
+                ->setLoaded(true);
+        } else {
+            $card->setError($data['error_description'] ?? $data['error'] ?? 'Unknown error.')
+                ->setSuccessful(false)
+                ->setLoaded(false);
 
-            return $card;
+            if (isset($data['messages'])) {
+                $card->setMessages($data['messages']);
+            }
         }
+
+        return $card;
     }
 }

@@ -21,10 +21,10 @@ class Balance extends Endpoint
             $data = $response->data();
 
             return new BalanceEntity([
-                'available' => $data['available'][0]['amount'],
-                'available_currency' => $data['available'][0]['currency'],
-                'pending' => $data['pending'][0]['amount'],
-                'pending_currency' => $data['pending'][0]['currency']
+                'available' => $data['response']['available'][0]['amount'],
+                'available_currency' => $data['response']['available'][0]['currency'],
+                'pending' => $data['response']['pending'][0]['amount'],
+                'pending_currency' => $data['response']['pending'][0]['currency']
             ]);
         }
     }

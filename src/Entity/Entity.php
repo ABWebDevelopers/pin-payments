@@ -1,7 +1,8 @@
 <?php
 namespace ABWebDevelopers\PinPayments\Entity;
 
-use \Respect\Validation\Validator;
+use Respect\Validation\Validator;
+use ABWebDevelopers\PinPayment\Entity\Exception\InvalidClassException;
 
 abstract class Entity
 {
@@ -15,6 +16,19 @@ abstract class Entity
      * @var array
      */
     protected $attributes = [];
+
+    /**
+     * An array of attributes that are masked by another value.
+     *
+     * Some attributes, for security purposes, may be masked by a "display" value. To define this, use the following array:
+     * [original attribute] => [masked attribute]
+     *
+     * Masked values will be displayed using any normal "get" method calls, and will only be returned unmasked if the first
+     * parameter of the main "get" method is true.
+     *
+     * @var array
+     */
+    protected $masked = [];
 
     /**
      * An array containing the current attritube data for this entity.
@@ -94,12 +108,18 @@ abstract class Entity
         return;
     }
 
-    public function get()
+    public function get(bool $unmasked = false): array
     {
-        return $this->data;
+        $data = [];
+
+        foreach ($this->attributes as $attribute => $type) {
+            $data[$attribute] = $this->getValue($attribute, $unmasked);
+        }
+
+        return $data;
     }
 
-    public function set(array $data)
+    public function set(array $data): Entity
     {
         foreach ($data as $key => $value) {
             $this->setValue($key, $value);
@@ -108,7 +128,7 @@ abstract class Entity
         return $this;
     }
 
-    public function getValue(string $attribute)
+    public function getValue(string $attribute, bool $unmasked = false)
     {
         // Get underscore attribute
         $attributeUnderscore = $this->inflector->underscore($attribute);
@@ -117,7 +137,11 @@ abstract class Entity
             throw new \InvalidArgumentException('Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute');
         }
 
-        return $this->data[$attributeUnderscore] ?? null;
+        if ($unmasked === false && isset($this->masked[$attributeUnderscore])) {
+            return $this->data[$this->masked[$attributeUnderscore]] ?? null;
+        } else {
+            return $this->data[$attributeUnderscore] ?? null;
+        }
     }
 
     public function setValue(string $attribute, $newValue = null): Entity
@@ -162,6 +186,16 @@ abstract class Entity
                 return Validator::floatVal()->validate($value);
             case 'array':
                 return Validator::arrayType()->validate($value);
+            case 'datetime':
+            case 'date':
+            case 'time':
+                return ($value instanceof \DateTime);
+            default:
+                if (!class_exists($this->attributes[$attributeUnderscore])) {
+                    throw new InvalidClassException($this->attributes[$attributeUnderscore] . ' is not a valid
+                        class to use as an entity attribute.');
+                }
+                return ($value instanceof $this->attributes[$attributeUnderscore]);
         }
     }
 

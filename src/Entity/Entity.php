@@ -18,6 +18,15 @@ abstract class Entity
     protected $attributes = [];
 
     /**
+     * An array of attributes that are sent with the Pin Payments API request.
+     *
+     * This should contain a list of attribute names that will be sent through to the Pin Payments API on request.
+     *
+     * @var array
+     */
+    protected $apiAttributes = [];
+
+    /**
      * An array of attributes that are masked by another value.
      *
      * Some attributes, for security purposes, may be masked by a "display" value. To define this, use the following array:
@@ -128,6 +137,21 @@ abstract class Entity
         return $this;
     }
 
+    public function getApiData(): array
+    {
+        $data = [];
+
+        foreach ($this->apiAttributes as $attribute) {
+            $data[$attribute] = $this->getValue($attribute, true);
+
+            if ($data[$attribute] instanceof Entity) {
+                $data[$attribute] = $data[$attribute]->getApiData();
+            }
+        }
+
+        return $data;
+    }
+
     public function getValue(string $attribute, bool $unmasked = false)
     {
         // Get underscore attribute
@@ -223,6 +247,10 @@ abstract class Entity
             case 'float':
                 return floatval($value);
             default:
+                if (class_exists($this->attributes[$attributeUnderscore])) {
+                    $value = new $this->attributes[$attributeUnderscore]($value);
+                    $value->setLoaded(true);
+                }
                 return $value;
         }
     }

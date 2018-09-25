@@ -36,4 +36,15 @@ class Charge extends Entity
         'error' => 'string',
         'messages' => 'array'
     ];
+
+    protected $apiAttributes = [
+        'token',
+        'email',
+        'description',
+        'amount',
+        'ip_address',
+        'currency',
+        'capture',
+        'metadata'
+    ];
 }

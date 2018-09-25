@@ -39,4 +39,19 @@ class Card extends Entity
     protected $masked = [
         'number' => 'display_number'
     ];
+
+    protected $apiAttributes = [
+        'token',
+        'number',
+        'expiry_month',
+        'expiry_year',
+        'cvc',
+        'name',
+        'address_line1',
+        'address_line2',
+        'address_city',
+        'address_postcode',
+        'address_state',
+        'address_country'
+    ];
 }

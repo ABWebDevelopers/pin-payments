@@ -29,4 +29,11 @@ class BankAccount extends Entity
     protected $masked = [
         'number' => 'display_number'
     ];
+
+    protected $apiAttributes = [
+        'token',
+        'name',
+        'bsb',
+        'number'
+    ];
 }

@@ -49,6 +49,7 @@ class ApiClient
         'bankAccounts' => \ABWebDevelopers\PinPayments\Endpoint\BankAccounts::class,
         'cards' => \ABWebDevelopers\PinPayments\Endpoint\Cards::class,
         'charges' => \ABWebDevelopers\PinPayments\Endpoint\Charges::class,
+        'recipients' => \ABWebDevelopers\PinPayments\Endpoint\Recipients::class
     ];
 
     public function __construct(

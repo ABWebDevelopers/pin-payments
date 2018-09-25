@@ -7,7 +7,7 @@ use ABWebDevelopers\PinPayments\Entity\Recipient;
 
 class Recipients extends Endpoint
 {
-    public function post(Recipient $recipient)
+    public function post(Recipient $recipient): Recipient
     {
         $data = $recipient->getApiData();
 
@@ -43,5 +43,41 @@ class Recipients extends Endpoint
         }
 
         return $recipient;
+    }
+
+    public function get(): array
+    {
+        $page = 0;
+
+        do {
+            ++$page;
+
+            $request = new ApiRequest(
+                $this->client,
+                'GET',
+                'recipients?page=' . $page
+            );
+
+            $response = $request->send();
+            $data = $response->data();
+            $recipients = [];
+
+            if ($response->successful()) {
+                foreach ($data['response'] as $recipient) {
+                    // Alias the bank account number if it is provided
+                    if (isset($recipient['bank_account']['number'])) {
+                        $recipient['bank_account']['display_number'] = $recipient['bank_account']['number'];
+                        unset($recipient['bank_account']['number']);
+                    }
+
+                    $recipient = new Recipient($recipient);
+                    $recipient->setLoaded(true);
+                    $recipient->BankAccount->setLoaded(true);
+                    $recipients[] = $recipient;
+                }
+            }
+        } while ($data['pagination']['next'] !== null);
+
+        return $recipients;
     }
 }

@@ -1,5 +1,7 @@
 # Pin Payments API
 
+![Build Status](https://api.travis-ci.org/ABWebDevelopers/pin-payments.svg?branch=master)
+
 This library facilitates the communication between a PHP application and the [Pin Payments](https://pinpayments.com) API.
 
 We recommend using this library if you would like to use the full suite of the Pin Payments API. If you are intending to just charge a credit card as part of a payment or checkout process, we recommend the use of the [Omnipay](https://omnipay.thephpleague.com/) library instead, which has support for Pin Payments among many other payment gateways.

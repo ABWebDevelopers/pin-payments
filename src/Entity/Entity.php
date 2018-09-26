@@ -54,12 +54,14 @@ abstract class Entity
      */
     protected $inflector;
 
-    public function __construct(array $data = [])
+    public function __construct($data = [])
     {
         $this->inflector = \ICanBoogie\Inflector::get('en');
 
-        if (count($data)) {
+        if (is_array($data) && count($data)) {
             $this->set($data);
+        } elseif (is_string($data) && !empty($data) && isset($this->attributes['token'])) {
+            $this->setToken($data);
         }
     }
 

@@ -1,6 +1,6 @@
 # Pin Payments API
 
-![Build Status](https://api.travis-ci.org/ABWebDevelopers/pin-payments.svg?branch=master)
+[![Build Status](https://api.travis-ci.org/ABWebDevelopers/pin-payments.svg?branch=master)](https://travis-ci.org/ABWebDevelopers/pin-payments)
 
 This library facilitates the communication between a PHP application and the [Pin Payments](https://pinpayments.com) API.
 
@@ -22,8 +22,18 @@ composer require abwebdevelopers/pin-payments "dev-master"
 
 - **Balance**
   - GET /balance
+- **Bank Accounts**
+  - POST /bank_accounts
 - **Cards**
   - POST /cards
+- **Recipients**
+  - POST /recipients
+  - GET /recipients
+  - GET /recipients/`recipient-token`
+  - PUT /recipients/`recipient-token`
+  - GET /recipients/`recipient-token`/transfers
+- **Transfers**
+  - POST /transfers
 
 ## How to use
 

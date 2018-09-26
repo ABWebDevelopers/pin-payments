@@ -20,10 +20,10 @@ class Recipients extends Endpoint
         );
 
         $response = $request->send();
-        $data = $response->data();
+        $data = $response->getResponseData();
         $recipient->setSubmitted(true);
 
-        if ($response->successful()) {
+        if ($response->isSuccessful()) {
             // Alias the bank account number if it is provided
             if (isset($data['response']['bank_account']['number'])) {
                 $data['response']['bank_account']['display_number'] = $data['response']['bank_account']['number'];
@@ -69,10 +69,10 @@ class Recipients extends Endpoint
             );
 
             $response = $request->send();
-            $data = $response->data();
+            $data = $response->getResponseData();
             $recipients = [];
 
-            if ($response->successful()) {
+            if ($response->isSuccessful()) {
                 foreach ($data['response'] as $recipient) {
                     // Alias the bank account number if it is provided
                     if (isset($recipient['bank_account']['number'])) {
@@ -100,9 +100,9 @@ class Recipients extends Endpoint
         );
 
         $response = $request->send();
-        $data = $response->data();
+        $data = $response->getResponseData();
 
-        if ($response->successful()) {
+        if ($response->isSuccessful()) {
             // Alias the bank account number if it is provided
             if (isset($data['response']['bank_account']['number'])) {
                 $data['response']['bank_account']['display_number'] = $data['response']['bank_account']['number'];

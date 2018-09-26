@@ -17,8 +17,8 @@ class Balance extends Endpoint
 
         $response = $request->send();
 
-        if ($response->successful()) {
-            $data = $response->data();
+        if ($response->isSuccessful()) {
+            $data = $response->getResponseData();
 
             return new BalanceEntity([
                 'available' => $data['response']['available'][0]['amount'],

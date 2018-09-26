@@ -18,12 +18,17 @@ class ApiResponse
         }
     }
 
-    public function successful()
+    public function isSuccessful()
     {
         return ($this->response->getStatusCode() === 200);
     }
 
-    public function data()
+    public function getStatusCode()
+    {
+        return $this->response->getStatusCode();
+    }
+
+    public function getResponseData()
     {
         $data = json_decode($this->response->getBody()->getContents(), true);
         $error = json_last_error();

@@ -19,10 +19,10 @@ class Cards extends Endpoint
         );
 
         $response = $request->send();
-        $data = $response->data();
+        $data = $response->getResponseData();
         $card->setSubmitted(true);
 
-        if ($response->successful()) {
+        if ($response->isSuccessful()) {
             $card->set($data['response'])
                 ->setSuccessful(true)
                 ->setLoaded(true);

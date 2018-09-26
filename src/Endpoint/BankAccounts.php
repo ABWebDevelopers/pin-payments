@@ -19,10 +19,10 @@ class BankAccounts extends Endpoint
         );
 
         $response = $request->send();
-        $data = $response->data();
+        $data = $response->getResponseData();
         $bankAccount->setSubmitted(true);
 
-        if ($response->successful()) {
+        if ($response->isSuccessful()) {
             // Alias the bank account display number
             $data['response']['display_number'] = $data['response']['number'];
             unset($data['response']['number']);

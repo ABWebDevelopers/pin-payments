@@ -238,7 +238,7 @@ abstract class Entity
                     throw new InvalidClassException($this->attributes[$attributeUnderscore] . ' is not a valid
                         class to use as an entity attribute.');
                 }
-                return ($value instanceof $this->attributes[$attributeUnderscore] || is_array($value));
+                return ($value instanceof $this->attributes[$attributeUnderscore] || is_array($value) || is_string($value));
         }
     }
 
@@ -274,6 +274,9 @@ abstract class Entity
                     if (is_array($value)) {
                         $value = new $this->attributes[$attributeUnderscore]($value);
                         $value->setLoaded(true);
+                    } else if (is_string($value)) {
+                        $value = new $this->attributes[$attributeUnderscore]($value);
+                        $value->setLoaded(false);
                     } else if ($value instanceof $this->attributes[$attributeUnderscore] === false) {
                         throw new InvalidClassValueException(get_class($value) . ' is not an instance of ' . $this->attributes[$attributeUnderscore]);
                     }

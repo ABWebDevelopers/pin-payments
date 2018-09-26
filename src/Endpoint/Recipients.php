@@ -3,6 +3,7 @@ namespace ABWebDevelopers\PinPayments\Endpoint;
 
 use ABWebDevelopers\PinPayments\ApiRequest;
 use ABWebDevelopers\PinPayments\Endpoint\Endpoint;
+use ABWebDevelopers\PinPayments\Endpoint\Exception\NotFoundException;
 use ABWebDevelopers\PinPayments\Entity\Recipient;
 
 class Recipients extends Endpoint
@@ -45,7 +46,16 @@ class Recipients extends Endpoint
         return $recipient;
     }
 
-    public function get(): array
+    public function get(Recipient $recipient = null)
+    {
+        if (isset($recipient)) {
+            return $this->getDetails($recipient);
+        } else {
+            return $this->getAll();
+        }
+    }
+
+    protected function getAll()
     {
         $page = 0;
 
@@ -79,5 +89,32 @@ class Recipients extends Endpoint
         } while ($data['pagination']['next'] !== null);
 
         return $recipients;
+    }
+
+    protected function getDetails(Recipient $recipient): Recipient
+    {
+        $request = new ApiRequest(
+            $this->client,
+            'GET',
+            'recipients/' . $recipient->getToken()
+        );
+
+        $response = $request->send();
+        $data = $response->data();
+
+        if ($response->successful()) {
+            // Alias the bank account number if it is provided
+            if (isset($data['response']['bank_account']['number'])) {
+                $data['response']['bank_account']['display_number'] = $data['response']['bank_account']['number'];
+                unset($data['response']['bank_account']['number']);
+            }
+
+            $recipient->set($data['response'])
+                ->setLoaded(true);
+        } else {
+            throw new NotFoundException('No recipient could be found with the specified token.');
+        }
+
+        return $recipient;
     }
 }

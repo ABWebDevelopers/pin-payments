@@ -5,6 +5,12 @@ use Respect\Validation\Validator;
 use ABWebDevelopers\PinPayments\Entity\Exception\InvalidClassException;
 use ABWebDevelopers\PinPayments\Entity\Exception\InvalidClassValueException;
 
+/**
+ * Entity Class.
+ *
+ * An entity class represents a single instance of data that can be sent through the Pin Payments API. This can
+ * be a card, or a recipient, or a charge, etc. Entities have
+ */
 abstract class Entity
 {
     /**
@@ -31,11 +37,13 @@ abstract class Entity
     /**
      * An array of attributes that are masked by another value.
      *
-     * Some attributes, for security purposes, may be masked by a "display" value. To define this, use the following array:
+     * Some attributes, for security purposes, may be masked by a "display" value. To define this, use the following
+     * array:
+     *
      * [original attribute] => [masked attribute]
      *
-     * Masked values will be displayed using any normal "get" method calls, and will only be returned unmasked if the first
-     * parameter of the main "get" method is true.
+     * Masked values will be displayed using any normal "get" method calls, and will only be returned unmasked if the
+     * first parameter of the main "get" method is true.
      *
      * @var array
      */
@@ -113,7 +121,9 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException('Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute');
+            throw new \InvalidArgumentException(
+                'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
+            );
         }
 
         $this->data[$attributeUnderscore] = null;
@@ -167,7 +177,9 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException('Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute');
+            throw new \InvalidArgumentException(
+                'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
+            );
         }
 
         if ($unmasked === false && isset($this->masked[$attributeUnderscore])) {
@@ -183,15 +195,35 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException('Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute');
+            throw new \InvalidArgumentException(
+                'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
+            );
         }
 
         if ($this->validateValue($attribute, $newValue) === false) {
-            throw new \InvalidArgumentException('The value provided for the "' . $attribute . '" attribute is not a valid ' . $this->attributes[$attributeUnderscore]);
+            throw new \InvalidArgumentException(
+                'The value provided for the "' . $attribute . '" attribute is not a valid ' .
+                $this->attributes[$attributeUnderscore]
+            );
         }
 
         $this->data[$attributeUnderscore] = $this->castValue($attribute, $newValue);
         return $this;
+    }
+
+    public function listAttributes()
+    {
+        return $this->attributes;
+    }
+
+    public function listApiAttributes()
+    {
+        return $this->apiAttributes;
+    }
+
+    public function hasAttribute(string $attribute)
+    {
+        return isset($this->attributes[$attribute]);
     }
 
     protected function validateValue(string $attribute, $value = null): bool
@@ -200,7 +232,9 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException('Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute');
+            throw new \InvalidArgumentException(
+                'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
+            );
         }
 
         if (!isset($value)) {
@@ -224,7 +258,7 @@ abstract class Entity
             case 'time':
                 if ($value instanceof \DateTime) {
                     return true;
-                } else if (is_string($value)) {
+                } elseif (is_string($value)) {
                     try {
                         $date = new \DateTime($value);
                     } catch (\Exception $e) {
@@ -239,7 +273,11 @@ abstract class Entity
                     throw new InvalidClassException($this->attributes[$attributeUnderscore] . ' is not a valid
                         class to use as an entity attribute.');
                 }
-                return ($value instanceof $this->attributes[$attributeUnderscore] || is_array($value) || is_string($value));
+                return (
+                    $value instanceof $this->attributes[$attributeUnderscore]
+                    || is_array($value)
+                    || is_string($value)
+                );
         }
     }
 
@@ -249,7 +287,9 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException('Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute');
+            throw new \InvalidArgumentException(
+                'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
+            );
         }
 
         if (!isset($value)) {
@@ -274,12 +314,18 @@ abstract class Entity
                 if (class_exists($this->attributes[$attributeUnderscore])) {
                     if (is_array($value)) {
                         $value = new $this->attributes[$attributeUnderscore]($value);
-                        $value->setLoaded(true);
-                    } else if (is_string($value)) {
+                        if ($value->hasAttribute('loaded')) {
+                            $value->setLoaded(true);
+                        }
+                    } elseif (is_string($value)) {
                         $value = new $this->attributes[$attributeUnderscore]($value);
-                        $value->setLoaded(false);
-                    } else if ($value instanceof $this->attributes[$attributeUnderscore] === false) {
-                        throw new InvalidClassValueException(get_class($value) . ' is not an instance of ' . $this->attributes[$attributeUnderscore]);
+                        if ($value->hasAttribute('loaded')) {
+                            $value->setLoaded(false);
+                        }
+                    } elseif ($value instanceof $this->attributes[$attributeUnderscore] === false) {
+                        throw new InvalidClassValueException(
+                            get_class($value) . ' is not an instance of ' . $this->attributes[$attributeUnderscore]
+                        );
                     }
                 }
                 return $value;
@@ -292,7 +338,9 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException('Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute');
+            throw new \InvalidArgumentException(
+                'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
+            );
         }
 
         return (empty($this->data[$attributeUnderscore]) === $isFalse);

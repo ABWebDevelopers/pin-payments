@@ -13,6 +13,7 @@ abstract class Entity
      * Attributes should be specified as an array in the following format:
      * [attribute name] => [attribute type]
      * `attribute type` can be any one of the following: `string`, `bool`, `int`, `float` and `array`
+     * or a fully-qualified class name.
      *
      * @var array
      */

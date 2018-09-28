@@ -3,6 +3,7 @@ namespace ABWebDevelopers\PinPayments\Tests\TestCase;
 
 use ABWebDevelopers\PinPayments\Tests\Fixture\TestEntity;
 use PHPUnit\Framework\TestCase;
+use ABWebDevelopers\PinPayments\Tests\Fixture\ChildEntity;
 
 class EntitySetterGetterTest extends TestCase
 {
@@ -22,6 +23,7 @@ class EntitySetterGetterTest extends TestCase
         $this->assertTrue($this->entity->TrueVal);
         $this->assertFalse($this->entity->FalseVal);
         $this->assertNull($this->entity->EmptyVal);
+        $this->assertInstanceOf(ChildEntity::class, $this->entity->ChildVal);
     }
 
     public function testMagicGetsUnderscored()
@@ -33,6 +35,7 @@ class EntitySetterGetterTest extends TestCase
         $this->assertTrue($this->entity->true_val);
         $this->assertFalse($this->entity->false_val);
         $this->assertNull($this->entity->empty_val);
+        $this->assertInstanceOf(ChildEntity::class, $this->entity->child_val);
     }
 
     public function testMagicCallsToGetFunctions()
@@ -44,6 +47,7 @@ class EntitySetterGetterTest extends TestCase
         $this->assertTrue($this->entity->getTrueVal());
         $this->assertFalse($this->entity->getFalseVal());
         $this->assertNull($this->entity->getEmptyVal());
+        $this->assertInstanceOf(ChildEntity::class, $this->entity->getChildVal());
     }
 
     /**
@@ -84,6 +88,16 @@ class EntitySetterGetterTest extends TestCase
 
         $this->entity->EmptyVal = 'Not empty';
         $this->assertSame('Not empty', $this->entity->EmptyVal);
+
+        $this->entity->ChildVal = new ChildEntity([
+            'string_1_val' => 'String 1 New',
+            'string_2_val' => 'String 2 New',
+            'private_val' => 'Private New'
+        ]);
+        $this->assertInstanceOf(ChildEntity::class, $this->entity->ChildVal);
+        $this->assertSame('String 1 New', $this->entity->ChildVal->string_1_val);
+        $this->assertSame('String 2 New', $this->entity->ChildVal->string_2_val);
+        $this->assertSame('Private New', $this->entity->ChildVal->PrivateVal);
     }
 
     public function testMagicSetsUnderscored()
@@ -108,6 +122,16 @@ class EntitySetterGetterTest extends TestCase
 
         $this->entity->empty_val = 'Not empty';
         $this->assertSame('Not empty', $this->entity->empty_val);
+
+        $this->entity->child_val = new ChildEntity([
+            'string_1_val' => 'String 1 New',
+            'string_2_val' => 'String 2 New',
+            'private_val' => 'Private New'
+        ]);
+        $this->assertInstanceOf(ChildEntity::class, $this->entity->child_val);
+        $this->assertSame('String 1 New', $this->entity->child_val->string_1_val);
+        $this->assertSame('String 2 New', $this->entity->child_val->string_2_val);
+        $this->assertSame('Private New', $this->entity->child_val->PrivateVal);
     }
 
     public function testMagicCallsToSetFunctions()
@@ -132,6 +156,16 @@ class EntitySetterGetterTest extends TestCase
 
         $this->entity->setEmptyVal('Not empty');
         $this->assertSame('Not empty', $this->entity->getEmptyVal());
+
+        $this->entity->setChildVal(new ChildEntity([
+            'string_1_val' => 'String 1 New',
+            'string_2_val' => 'String 2 New',
+            'private_val' => 'Private New'
+        ]));
+        $this->assertInstanceOf(ChildEntity::class, $this->entity->getChildVal());
+        $this->assertSame('String 1 New', $this->entity->getChildVal()->getValue('string_1_val'));
+        $this->assertSame('String 2 New', $this->entity->getChildVal()->getValue('string_2_val'));
+        $this->assertSame('Private New', $this->entity->getChildVal()->getPrivateVal());
     }
 
     /**

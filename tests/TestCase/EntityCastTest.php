@@ -3,6 +3,7 @@ namespace ABWebDevelopers\PinPayments\Tests\TestCase;
 
 use ABWebDevelopers\PinPayments\Tests\Fixture\TestEntity;
 use PHPUnit\Framework\TestCase;
+use ABWebDevelopers\PinPayments\Tests\Fixture\ChildEntity;
 
 class EntityCastTest extends TestCase
 {
@@ -137,5 +138,28 @@ class EntityCastTest extends TestCase
     public function testInvalidArraySetToBool()
     {
         $this->entity->array_val = true;
+    }
+
+    public function testValidChildClassSets()
+    {
+        $this->entity->ChildVal = new ChildEntity([
+            'string_1_val' => 'String 1 New',
+            'string_2_val' => 'String 2 New',
+            'private_val' => 'Private New'
+        ]);
+        $this->assertInstanceOf(ChildEntity::class, $this->entity->ChildVal);
+        $this->assertSame('String 1 New', $this->entity->ChildVal->string_1_val);
+        $this->assertSame('String 2 New', $this->entity->ChildVal->string_2_val);
+        $this->assertSame('Private New', $this->entity->ChildVal->PrivateVal);
+
+        $this->entity->ChildVal = [
+            'string_1_val' => 'String 1 New 2',
+            'string_2_val' => 'String 2 New 2',
+            'private_val' => 'Private New 2'
+        ];
+        $this->assertInstanceOf(ChildEntity::class, $this->entity->ChildVal);
+        $this->assertSame('String 1 New 2', $this->entity->ChildVal->string_1_val);
+        $this->assertSame('String 2 New 2', $this->entity->ChildVal->string_2_val);
+        $this->assertSame('Private New 2', $this->entity->ChildVal->PrivateVal);
     }
 }

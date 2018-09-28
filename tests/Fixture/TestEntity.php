@@ -2,6 +2,7 @@
 namespace ABWebDevelopers\PinPayments\Tests\Fixture;
 
 use ABWebDevelopers\PinPayments\Entity\Entity as BaseEntity;
+use ABWebDevelopers\PinPayments\Tests\Fixture\ChildEntity;
 
 class TestEntity extends BaseEntity
 {
@@ -12,7 +13,8 @@ class TestEntity extends BaseEntity
         'array_val' => 'array',
         'true_val' => 'bool',
         'false_val' => 'bool',
-        'empty_val' => 'string'
+        'empty_val' => 'string',
+        'child_val' => 'ABWebDevelopers\PinPayments\Tests\Fixture\ChildEntity'
     ];
 
     protected $data = [
@@ -25,6 +27,17 @@ class TestEntity extends BaseEntity
         ],
         'true_val' => true,
         'false_val' => false,
-        'empty_val' => null
+        'empty_val' => null,
     ];
+
+    public function __construct($data = [])
+    {
+        $this->data['child_val'] = new ChildEntity([
+            'string_1_val' => 'String 1',
+            'string_2_val' => 'String 2',
+            'private_val' => 'Private'
+        ]);
+
+        parent::__construct($data);
+    }
 }

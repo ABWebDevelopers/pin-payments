@@ -4,6 +4,7 @@ namespace ABWebDevelopers\PinPayments\Entity;
 use Respect\Validation\Validator;
 use ABWebDevelopers\PinPayments\Entity\Exception\InvalidClassException;
 use ABWebDevelopers\PinPayments\Entity\Exception\InvalidClassValueException;
+use ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException;
 
 /**
  * Entity Class.
@@ -121,7 +122,7 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException(
+            throw new MissingAttributeException(
                 'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
             );
         }
@@ -177,7 +178,7 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException(
+            throw new MissingAttributeException(
                 'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
             );
         }
@@ -195,13 +196,13 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException(
+            throw new MissingAttributeException(
                 'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
             );
         }
 
         if ($this->validateValue($attribute, $newValue) === false) {
-            throw new \InvalidArgumentException(
+            throw new MissingAttributeException(
                 'The value provided for the "' . $attribute . '" attribute is not a valid ' .
                 $this->attributes[$attributeUnderscore]
             );
@@ -232,7 +233,7 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException(
+            throw new MissingAttributeException(
                 'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
             );
         }
@@ -287,7 +288,7 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException(
+            throw new MissingAttributeException(
                 'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
             );
         }
@@ -338,7 +339,7 @@ abstract class Entity
         $attributeUnderscore = $this->inflector->underscore($attribute);
 
         if (!isset($this->attributes[$attributeUnderscore])) {
-            throw new \InvalidArgumentException(
+            throw new MissingAttributeException(
                 'Entity "' . get_class($this) . '" does not have a "' . $attribute . '" attribute'
             );
         }

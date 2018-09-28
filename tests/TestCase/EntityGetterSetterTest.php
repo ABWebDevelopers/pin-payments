@@ -51,7 +51,7 @@ class EntitySetterGetterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidMagicGet()
     {
@@ -59,7 +59,7 @@ class EntitySetterGetterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidMagicCallToGetFunction()
     {
@@ -169,7 +169,7 @@ class EntitySetterGetterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidMagicSet()
     {
@@ -177,7 +177,7 @@ class EntitySetterGetterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidMagicCallToSetFunction()
     {

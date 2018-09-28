@@ -14,7 +14,7 @@ class EntityCastTest extends TestCase
         $this->entity = new TestEntity;
     }
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidStringSetToArray()
     {
@@ -34,7 +34,7 @@ class EntityCastTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidBoolSetToString()
     {
@@ -42,7 +42,7 @@ class EntityCastTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidBoolSetToInt()
     {
@@ -50,7 +50,7 @@ class EntityCastTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidBoolSetToArray()
     {
@@ -58,7 +58,7 @@ class EntityCastTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidIntSetToAlphaString()
     {
@@ -66,7 +66,7 @@ class EntityCastTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidIntSetToArray()
     {
@@ -86,7 +86,7 @@ class EntityCastTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidFloatSetToAlphaString()
     {
@@ -94,7 +94,7 @@ class EntityCastTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidFloatSetToArray()
     {
@@ -117,7 +117,7 @@ class EntityCastTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidArraySetToString()
     {
@@ -125,7 +125,7 @@ class EntityCastTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidArraySetToInt()
     {
@@ -133,7 +133,7 @@ class EntityCastTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ABWebDevelopers\PinPayments\Entity\Exception\MissingAttributeException
      */
     public function testInvalidArraySetToBool()
     {

@@ -157,7 +157,7 @@ abstract class Entity
         return $this;
     }
 
-    public function getApiData(): array
+    public function getApiData(bool $association = false): array
     {
         $data = [];
 
@@ -165,11 +165,11 @@ abstract class Entity
             $data[$attribute] = $this->getValue($attribute, true);
 
             if ($data[$attribute] instanceof Entity) {
-                $data[$attribute] = $data[$attribute]->getApiData();
+                $data[$attribute] = $data[$attribute]->getApiData(true);
             }
         }
 
-        return $data;
+        return $this->onGetApiData($data, $association);
     }
 
     public function getValue(string $attribute, bool $unmasked = false)
@@ -345,5 +345,10 @@ abstract class Entity
         }
 
         return (empty($this->data[$attributeUnderscore]) === $isFalse);
+    }
+
+    protected function onGetApiData(array $data = [], bool $associated = false): array
+    {
+        return $data;
     }
 }

@@ -3,6 +3,7 @@ namespace ABWebDevelopers\PinPayments\Endpoint;
 
 use ABWebDevelopers\PinPayments\ApiRequest;
 use ABWebDevelopers\PinPayments\Endpoint\Endpoint;
+use ABWebDevelopers\PinPayments\Endpoint\Exception\InsufficientPinBalanceException;
 use ABWebDevelopers\PinPayments\Endpoint\Exception\NotFoundException;
 use ABWebDevelopers\PinPayments\Entity\Transfer;
 
@@ -34,7 +35,7 @@ class Transfers extends Endpoint
                 ->setSuccessful(true)
                 ->setLoaded(true);
         } else if ($response->getStatusCode() === 402) {
-            throw new InsufficientFundsException('There are not enough funds available to process this transfer');
+            throw new InsufficientPinBalanceException('There are not enough funds available to process this transfer');
         } else {
             $transfer->setError($data['error_description'] ?? $data['error'] ?? 'Unknown error.')
                 ->setSuccessful(false)

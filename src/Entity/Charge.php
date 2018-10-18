@@ -15,9 +15,10 @@ class Charge extends Entity
         'currency' => 'string',
         'capture' => 'bool',
         'metadata' => 'array',
+        'card' => 'ABWebDevelopers\PinPayments\Entity\Card',
 
         // Response attributes
-        'created_at' => 'string',
+        'created_at' => 'datetime',
         'transfer' => 'array',
         'amount_refunded' => 'int',
         'total_fees' => 'int',
@@ -25,8 +26,9 @@ class Charge extends Entity
         'refund_pending' => 'bool',
         'authorisation_expired' => 'bool',
         'captured' => 'bool',
-        'captured_at' => 'string',
+        'captured_at' => 'datetime',
         'settlement_currency' => 'string',
+        'active_chargebacks' => 'bool',
 
         // Communication attributes
         'successful' => 'bool',
@@ -47,4 +49,16 @@ class Charge extends Entity
         'capture',
         'metadata'
     ];
+
+    protected function onGetApiData(array $data = [], bool $associated = false): array
+    {
+        // If a card token is present, use that instead of the entire card data
+        if (isset($this->card) && !empty($this->card->getToken())) {
+            $data['card_token'] = $this->card->getToken();
+        } else {
+            $data['card'] = $this->card->getApiData(true) ?? null;
+        }
+
+        return $data;
+    }
 }

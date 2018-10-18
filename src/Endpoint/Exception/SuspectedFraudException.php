@@ -1,14 +1,14 @@
 <?php
 namespace ABWebDevelopers\PinPayments\Endpoint\Exception;
 
-class InsufficientFundsException extends \Exception
+class SuspectedFraudException extends \Exception
 {
     /**
      * Exception message
      *
      * @var string
      */
-    protected $message = 'There are not enough funds available to process this charge.';
+    protected $message = 'The transaction was flagged as possibly fraudulent and subsequently declined.';
 
     /**
      * Exception code

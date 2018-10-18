@@ -1,14 +1,14 @@
 <?php
 namespace ABWebDevelopers\PinPayments\Endpoint\Exception;
 
-class InsufficientFundsException extends \Exception
+class CardExpiredException extends \Exception
 {
     /**
      * Exception message
      *
      * @var string
      */
-    protected $message = 'There are not enough funds available to process this charge.';
+    protected $message = 'This card has expired.';
 
     /**
      * Exception code

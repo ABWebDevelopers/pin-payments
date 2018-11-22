@@ -41,11 +41,11 @@
                 <strong>{{ item.title }}</strong>
                 <ul>
                 {% for subitem in item.subnav %}
-                    <li><a href="{{ subitem.url }}" class="{% if subitem.url == page.url %}active{% endif %}">{{ subitem.title }}</a></li>
+                    <li><a href="{{ subitem.url | relative_url }}" class="{% if subitem.url == page.url %}active{% endif %}">{{ subitem.title }}</a></li>
                 {% endfor %}
                 </ul>
             {% else %}
-                <strong><a href="{{ item.url }}" class="{% if item.url == page.url %}active{% endif %}">{{ item.title }}</a></strong>
+                <strong><a href="{{ item.url | relative_url }}" class="{% if item.url == page.url %}active{% endif %}">{{ item.title }}</a></strong>
             {% endif %}
         {% endfor %}
       </nav>

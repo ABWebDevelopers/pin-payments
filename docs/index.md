@@ -16,20 +16,20 @@ We recommend using this library if you would like to use the full suite of the P
 
 Include this library in your application through [Composer](https://getcomposer.org):
 
-```
+```bash
 composer require abwebdevelopers/pin-payments "dev-master"
 ```
 
 This library uses the [HTTPlug](http://httplug.io/) abstraction layer to allow you to use your preferred HTTP client. This will mean that your project will need a compatible HTTP client available to work. If you have the `curl` extension enabled on your server, you may include the following libraries to satisy this requirement:
 
-```
+```bash
 composer require php-http/curl-client "^1.7"
 composer require guzzlehttp/psr7 "^1.4"
 ```
 
 Alternatively, you can also use Guzzle as your HTTP client:
 
-```
+```bash
 composer require guzzlehttp/guzzle "~6.0"
 ```
 

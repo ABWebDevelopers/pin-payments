@@ -20,7 +20,7 @@ class ApiResponse
 
     public function isSuccessful()
     {
-        return ($this->response->getStatusCode() === 200);
+        return ($this->response->getStatusCode() === 200 || $this->response->getStatusCode() === 201);
     }
 
     public function getStatusCode()

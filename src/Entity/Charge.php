@@ -47,7 +47,8 @@ class Charge extends Entity
         'ip_address',
         'currency',
         'capture',
-        'metadata'
+        'metadata',
+        'card'
     ];
 
     protected function onGetApiData(array $data = [], bool $associated = false): array
@@ -55,8 +56,10 @@ class Charge extends Entity
         // If a card token is present, use that instead of the entire card data
         if (isset($this->card) && !empty($this->card->getToken())) {
             $data['card_token'] = $this->card->getToken();
+        } elseif (isset($this->card)) {
+            $data['card'] = $this->card->getApiData(true);
         } else {
-            $data['card'] = $this->card->getApiData(true) ?? null;
+            $data['card'] = null;
         }
 
         return $data;

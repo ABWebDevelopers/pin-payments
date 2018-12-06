@@ -39,4 +39,16 @@ class Transfer extends Entity
         'currency',
         'recipient'
     ];
+
+    protected function onGetApiData(array $data = [], bool $associated = false): array
+    {
+        // If a recipient token is present, use that instead of the entire recipient data
+        if (isset($this->recipient) && !empty($this->recipient->getToken())) {
+            $data['recipient'] = $this->recipient->getToken();
+        } else {
+            $data['recipient'] = null;
+        }
+
+        return $data;
+    }
 }

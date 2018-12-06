@@ -34,9 +34,4 @@ class Refund extends Entity
         'amount',
         'charge',
     ];
-
-    protected function onGetApiData($data = [], $associated = false)
-    {
-        return $data;
-    }
 }

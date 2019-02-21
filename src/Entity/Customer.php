@@ -29,7 +29,7 @@ class Customer extends Entity
         'email',
     ];
 
-    protected function onGetApiData($data = [], $associated = false)
+    protected function onGetApiData(array $data = [], bool $associated = false): array
     {
         // If a card token is present, use that instead of the entire card data
         if (isset($this->card) && !empty($this->card->getToken())) {

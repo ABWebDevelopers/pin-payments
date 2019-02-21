@@ -16,6 +16,7 @@ class Charge extends Entity
         'capture' => 'bool',
         'metadata' => 'array',
         'card' => 'ABWebDevelopers\PinPayments\Entity\Card',
+        'customer_token' => 'string',
 
         // Response attributes
         'created_at' => 'datetime',
@@ -56,6 +57,7 @@ class Charge extends Entity
         // If a card token is present, use that instead of the entire card data
         if (isset($this->card) && !empty($this->card->getToken())) {
             $data['card_token'] = $this->card->getToken();
+            unset($data['card']);
         } elseif (isset($this->card)) {
             $data['card'] = $this->card->getApiData(true);
         } else {

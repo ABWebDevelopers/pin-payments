@@ -72,7 +72,8 @@ class ApiClient
         'cards' => \ABWebDevelopers\PinPayments\Endpoint\Cards::class,
         'charges' => \ABWebDevelopers\PinPayments\Endpoint\Charges::class,
         'recipients' => \ABWebDevelopers\PinPayments\Endpoint\Recipients::class,
-        'transfers' => \ABWebDevelopers\PinPayments\Endpoint\Transfers::class
+        'transfers' => \ABWebDevelopers\PinPayments\Endpoint\Transfers::class,
+        'customers' => \ABWebDevelopers\PinPayments\Endpoint\Customers::class
     ];
 
     /**

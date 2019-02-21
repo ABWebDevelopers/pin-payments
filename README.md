@@ -26,6 +26,13 @@ composer require abwebdevelopers/pin-payments "dev-master"
   - POST /bank_accounts
 - **Cards**
   - POST /cards
+- **Charges**
+  - POST /charges
+  - GET /charges/`charge-token`
+  - POST /charges/`charge-token`/refunds
+- **Customers**
+  - POST /customers
+  - GET /customers/`customer-token`
 - **Recipients**
   - POST /recipients
   - GET /recipients

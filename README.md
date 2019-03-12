@@ -1,6 +1,7 @@
 # Pin Payments API
 
 [<img src="https://api.travis-ci.org/ABWebDevelopers/pin-payments.svg?branch=master" alt="Build Status">](https://travis-ci.org/ABWebDevelopers/pin-payments)
+[![codecov](https://codecov.io/gh/ABWebDevelopers/pin-payments/branch/master/graph/badge.svg)](https://codecov.io/gh/ABWebDevelopers/pin-payments)
 
 This library facilitates the communication between a PHP application and the [Pin Payments](https://pinpayments.com) API.
 

@@ -1,9 +1,7 @@
 ---
 layout: default
+title: Authentication
 ---
-
-# Authentication
-
 To authenticate and use this plugin, you will need your Pin Payments API Secret Key. You can retrieve this via
 the **Account** area when signed in to your [Pin Payments dashboard](https://dashboard.pinpayments.com). Click on the
 **API Keys** option on this page to retrieve your key. Note that there are separate keys for the test gateway.

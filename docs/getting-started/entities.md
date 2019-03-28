@@ -1,8 +1,7 @@
 ---
 layout: default
+title: Entities
 ---
-# Entities
-
 All the types of information that can be passed back and forth through the Pin Payments API have been set up as Entities. Entities
 extend the `Entity` class in the `src/Entity` directory. This allows you to set or get the information stored in the entity in several
 different ways, and controls what attributes can be set for each entity.

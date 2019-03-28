@@ -1,0 +1,30 @@
+// Tables
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: $border-width solid $border-color;
+  margin-bottom: 30px;
+
+  @if $rtl == true {
+    text-align: right;
+  } @else {
+    text-align: left;
+  }
+
+  tbody {
+    tr:nth-of-type(odd) {
+      background: #f1f3f5;
+    }
+  }
+
+  td,
+  th {
+    border-bottom: $border-width solid $border-color;
+    padding: $unit-3 $unit-2;
+  }
+  th {
+    border-bottom-width: $border-width-lg;
+  }
+}

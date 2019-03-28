@@ -1,0 +1,14 @@
+{% assign currentUrl = page.url | replace: ".html" "" %}
+
+{% for section in site.data.navigation.toc %}
+<div>
+  <strong>{{ section.section }}</strong>
+  <ul>
+    {% for subpage in section.subpages %}
+        <li>
+          <a href="{{ subpage.url | prepend:site.baseurl }}"{% if currentUrl == subpage.url %} class="active"{% endif %}>{{ subpage.page }}</a>
+        </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endfor %}

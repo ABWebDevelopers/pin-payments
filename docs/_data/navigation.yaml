@@ -1,21 +1,19 @@
-items:
-  - title: Home
-    url: /
-  - title: Getting Started
-    subnav:
-      - title: Authentication
-        url: /authentication.html
-      - title: Entities
-        url: /entities.html
-  - title: Endpoints
-    subnav:
-      - title: Balance
+toc:
+  - section: Getting Started
+    subpages:
+      - page: Authentication
+        url: /getting-started/authentication
+      - page: Entities
+        url: /getting-started/entities
+  - section: Endpoints
+    subpages:
+      - page: Balance
         url: /endpoints/balance.html
-      - title: Bank Accounts
+      - page: Bank Accounts
         url: /endpoints/bank-accounts.html
-      - title: Cards
+      - page: Cards
         url: /endpoints/cards.html
-      - title: Recipients
+      - page: Recipients
         url: /endpoints/recipients.html
-      - title: Transfers
+      - page: Transfers
         url: /endpoints/transfers.html
